@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "The Core Application for Project Hydraean Cloud based",
   "main": "index.ts",
-  "repository": "https://github.com/Hydraean/kraken.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hydraean/kraken.git"
+  },
   "author": "Francis & Hunelleth",
   "license": "MIT",
   "private": false,
@@ -15,11 +18,22 @@
     "typescript": "^3.9.7"
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "@feathersjs/express": "^4.5.7",
+    "@feathersjs/feathers": "^4.5.7",
+    "@feathersjs/socketio": "^4.5.7",
+    "@feathersjs/socketio-client": "^4.5.7",
+    "express": "^4.17.1",
+    "socket.io-client": "^2.3.0"
   },
   "scripts": {
     "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
     "build": "tsc",
-    "start": "node dist/index.js"
-  }
+    "start": "node dist/index.js",
+    "test-feathers": "ts-node src/app.ts"
+  },
+  "bugs": {
+    "url": "https://github.com/Hydraean/kraken/issues"
+  },
+  "homepage": "https://github.com/Hydraean/kraken#readme",
+  "keywords": []
 }
