@@ -1,39 +1,37 @@
 {
-  "name": "kraken",
-  "version": "1.0.0",
-  "description": "The Core Application for Project Hydraean Cloud based",
-  "main": "index.ts",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Hydraean/kraken.git"
-  },
-  "author": "Francis & Hunelleth",
-  "license": "MIT",
-  "private": false,
-  "devDependencies": {
-    "@types/express": "^4.17.7",
-    "@types/node": "^14.0.27",
-    "nodemon": "^2.0.4",
-    "ts-node": "^8.10.2",
-    "typescript": "^3.9.7"
-  },
   "dependencies": {
-    "@feathersjs/express": "^4.5.7",
-    "@feathersjs/feathers": "^4.5.7",
-    "@feathersjs/socketio": "^4.5.7",
-    "@feathersjs/socketio-client": "^4.5.7",
+    "bcrypt": "^3.0.7",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "socket.io-client": "^2.3.0"
+    "moment": "^2.25.3",
+    "socket.io": "^2.2.0"
+  },
+  "name": "nebular",
+  "description": "a small and fast distributed realtime event driven database",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {
+    "@types/express": "^4.17.2",
+    "@types/node": "^12.12.14",
+    "nodemon": "^2.0.1",
+    "ts-node": "^8.5.4",
+    "typescript": "^3.7.3"
   },
   "scripts": {
-    "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
-    "build": "tsc",
-    "start": "node dist/index.js",
-    "test-feathers": "ts-node src/app.ts"
+    "start": "node ./build/index.js",
+    "dev": "nodemon ./src/index.ts",
+    "build": "tsc -p ."
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quadroloop/nebular"
+  },
+  "author": "Bryce Mercines",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Hydraean/kraken/issues"
+    "url": "https://github.com/quadroloop/nebular/issues"
   },
-  "homepage": "https://github.com/Hydraean/kraken#readme",
-  "keywords": []
+  "homepage": ""
 }
