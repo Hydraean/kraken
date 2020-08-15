@@ -1,57 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <title>Kraken v2</title>
+    <title>Kraken Demo API</title>
     <meta name="description" content="A FeathersJS server" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
       * {
         margin: 0;
         padding: 0;
-        box-sizing: border-box;
       }
       body {
         font-family: "Helvetica Neue", "Helvetica", "Arial", "sans-serif";
-        font-size: 16px;
         color: #f1f1f1;
-        background: linear-gradient(rgb(3, 3, 46), rgba(5, 5, 17, 0.63)),
-          url("https://cdn.fbsbx.com/v/t59.2708-21/117427158_1655329091297807_5109356803806870531_n.gif?_nc_cat=107&_nc_sid=041f46&_nc_ohc=5JhXT1qMcs8AX9KKraT&_nc_ht=cdn.fbsbx.com&oh=3ed24c94608bd825a9e14e7915a2ba79&oe=5F3995A2")
-            center no-repeat;
-        background-size: cover;
+        background: rgba(3, 3, 29, 0.986);
         height: 100vh;
         width: 100%;
+        display: grid;
       }
-
-      .center-text {
-        text-align: center;
+      h2 {
+        font-weight: 100;
+        font-size: 2em;
       }
-
-      main {
-        margin-top: 100px;
-        padding: 20px;
-      }
-
       img.logo {
-        display: block;
-        margin: 0 auto;
         max-width: 120px;
-        margin-bottom: 30px;
         border-radius: 10px;
       }
-
-      h2 {
-        font-size: 2em;
-        font-weight: 100;
-      }
-
       a {
         color: #3cf;
         text-decoration: none;
       }
-
-      a:hover,
-      a:focus {
-        color: #3cf;
+      .container {
+        margin: auto;
       }
     </style>
   </head>
@@ -62,6 +40,7 @@
           class="logo"
           src="https://avatars2.githubusercontent.com/u/69031703?s=400&u=50662c17c824126319cff2de4229e5beca67c3f1&v=4"
         />
+        <br />
         <br />
         <h2>Kraken Demo API</h2>
         <br />

@@ -56,7 +56,6 @@ app.get("/events", (req, res) => {
 // get all advisories
 app.get("/advisories/all", (req, res) => {
   let data = db.get("advisories").value();
-
   res.send(data);
 });
 
