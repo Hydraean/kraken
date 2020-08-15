@@ -54,9 +54,20 @@ app.get("/events", (req, res) => {
 });
 
 // get all advisories
-app.get("/advisories/all", (req, res) => {
+app.get("/feed", (req, res) => {
   let data = db.get("advisories").value();
   res.send(data);
+});
+
+app.post("/report", (req, res) => {
+  let payload = req.body.data;
+
+  if (payload) {
+    console.log(payload);
+    res.send("okay");
+  } else {
+    res.send("error");
+  }
 });
 
 // Handle Socket Events
