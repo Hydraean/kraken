@@ -53,8 +53,9 @@ app.get("/events", (req, res) => {
   res.send(allEvents);
 });
 
-// get all advisories
-app.get("/feed", (req, res) => {
+// broadcast network feed in small chunks
+app.get("/network/feed", (req, res) => {
+  console.log("accessing feed...");
   let data = db.get("advisories").value();
   res.send(data);
 });
