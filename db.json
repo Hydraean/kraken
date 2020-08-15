@@ -1,0 +1,42 @@
+{
+  "events": [
+    {
+      "details": "Blast fishing in, Coron Palawan",
+      "device_id": "HX-0001",
+      "type": "illegal_fishing",
+      "title": "Illegal fishing activity",
+      "name": "Blast Fishing",
+      "reportee": "Bryce Mercines",
+      "source_platform": "node",
+      "date": 1596952876467,
+      "coordinates": {
+        "long": 121.001433,
+        "lat": 14.507936
+      }
+    },
+    {
+      "details": "Blast fishing in, Coron Palawan",
+      "device_id": "HX-0001",
+      "type": "illegal_fishing",
+      "title": "Illegal fishing activity",
+      "name": "Blast Fishing",
+      "reportee": "Bryce Mercines",
+      "source_platform": "node",
+      "date": 1596952876467,
+      "coordinates": {
+        "long": 121.001433,
+        "lat": 14.507936
+      }
+    }
+  ],
+
+  "advisories": [
+    {
+      "uid": "12312313131313",
+      "title": "Storm Surge Advisory",
+      "details": "Warning, we strongly advise to stop all planned fishing activity in the Area of Coron Palawan due possible storm surge",
+      "affected_area": "Coron, Palawan",
+      "date": "8/15/2020"
+    }
+  ]
+}

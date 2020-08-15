@@ -25,6 +25,12 @@ console.log(`===============================`);
 console.log(`Kraken Demo API: ${port}`);
 console.log(`===============================`);
 
+const low = require("lowdb");
+const FileSync = require("lowdb/adapters/FileSync");
+const adapter = new FileSync("db.json");
+
+export const db = low(adapter);
+
 // host landing page
 app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname + "/index.html"));
@@ -38,6 +44,20 @@ app.get("/status", (req, res) => {
     total_nodes: nodeList.length,
     total_collections: Object.keys(collections).length,
   });
+});
+
+// get all events
+app.get("/events", (req, res) => {
+  let allEvents = db.get("events").value();
+
+  res.send(allEvents);
+});
+
+// get all advisories
+app.get("/advisories/all", (req, res) => {
+  let data = db.get("advisories").value();
+
+  res.send(data);
 });
 
 // Handle Socket Events
