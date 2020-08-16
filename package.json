@@ -9,8 +9,8 @@
     "moment": "^2.25.3",
     "socket.io": "^2.2.0"
   },
-  "name": "nebular",
-  "description": "a small and fast distributed realtime event driven database",
+  "name": "kraken",
+  "description": "kraken demo API",
   "version": "1.0.0",
   "main": "index.js",
   "devDependencies": {
