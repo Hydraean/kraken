@@ -64,7 +64,8 @@ app.post("/report", (req, res) => {
   let payload = req.body.data;
 
   if (payload) {
-    console.log(payload);
+    var parseData = payload.replace(/"{/gi, "{").replace(/}"/gi, "}");
+    console.log(JSON.parse(parseData));
     res.send("okay");
   } else {
     res.send("error");
