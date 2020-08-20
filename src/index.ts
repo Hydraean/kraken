@@ -60,15 +60,24 @@ app.get("/network/feed", (req, res) => {
   res.send(data);
 });
 
+// recieve raw reports
 app.post("/report", (req, res) => {
   let payload = req.body.data;
 
   if (payload) {
     var parseData = payload.replace(/"{/gi, "{").replace(/}"/gi, "}");
-    console.log(JSON.parse(parseData));
-    res.send("okay");
+    try {
+      let reportData = JSON.parse(parseData);
+      console.log(reportData);
+      res.json({ status: 200, message: "Kraken: Raw report recieved." });
+    } catch {
+      res.status(400).json({
+        message:
+          "Error : Malformed Request, check the payload format and try again.",
+      });
+    }
   } else {
-    res.send("error");
+    res.status(400).json({ message: "Error : Incomplete Data Provided" });
   }
 });
 
