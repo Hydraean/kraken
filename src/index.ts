@@ -4,6 +4,7 @@ const http = require("http").Server(app);
 const io = require("socket.io")(http);
 import cors from "cors";
 import bodyParser from "body-parser";
+import { formatReport } from "./helpers";
 var path = require("path");
 
 require("dotenv").config();
@@ -68,9 +69,19 @@ app.post("/report", (req, res) => {
     var parseData = payload.replace(/"{/gi, "{").replace(/}"/gi, "}");
     try {
       let reportData = JSON.parse(parseData);
-      console.log(reportData);
+      let formattedReport = formatReport(reportData);
+
+      db.get("events").value().push(formattedReport);
+      db.write();
+
+      let updatedRecords = db.get("events").value();
+
+      // broadcast updated report records
+      io.emit("feedUpdate", { data: updatedRecords });
+
       res.json({ status: 200, message: "Kraken: Raw report recieved." });
-    } catch {
+    } catch (err) {
+      console.log(err);
       res.status(400).json({
         message:
           "Error : Malformed Request, check the payload format and try again.",

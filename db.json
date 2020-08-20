@@ -1,42 +1,59 @@
 {
   "events": [
     {
-      "details": "Blast fishing in, Coron Palawan",
-      "device_id": "HX-0001",
-      "type": "illegal_fishing",
-      "title": "Illegal fishing activity",
-      "name": "Blast Fishing",
-      "reportee": "Bryce Mercines",
+      "id": "3d1b268a-f0e4-4c9e-a565-fa8e24d3af9b",
+      "details": "Illegal Fishing Activity",
+      "device_id": "HN-0001",
+      "type": "emergency",
+      "name": "EMERGENCY ALERT",
+      "title": "EMERGENCY DISTRESS SIGNAL",
+      "address": "N/A",
+      "reportee": "Anonymous",
       "source_platform": "node",
-      "date": 1596952876467,
+      "date": 1597949662728,
+      "date_formatted": "August 21 2020",
       "coordinates": {
-        "long": 121.001433,
-        "lat": 14.507936
-      }
+        "long": 121.9216975,
+        "lat": 14.5411054
+      },
+      "report_type": "MANUAL"
     },
     {
-      "details": "Blast fishing in, Coron Palawan",
-      "device_id": "HX-0001",
-      "type": "illegal_fishing",
-      "title": "Illegal fishing activity",
-      "name": "Blast Fishing",
-      "reportee": "Bryce Mercines",
+      "id": "7661efe5-35f3-4938-97c4-cec18783ad99",
+      "details": "EMERGENCY DISTRESS CALL",
+      "device_id": "HN-0001",
+      "type": "emergency",
+      "name": "EMERGENCY ALERT",
+      "title": "EMERGENCY DISTRESS SIGNAL",
+      "address": "N/A",
+      "reportee": "Anonymous",
       "source_platform": "node",
-      "date": 1596952876467,
+      "date": 1597949674901,
+      "date_formatted": "August 21 2020",
       "coordinates": {
-        "long": 121.001433,
-        "lat": 14.507936
-      }
+        "long": 121.9216407,
+        "lat": 14.5432912
+      },
+      "report_type": "MANUAL"
+    },
+    {
+      "id": "df500f59-faa7-48ca-96a4-e903632cf462",
+      "details": "EMERGENCY DISTRESS CALL",
+      "device_id": "HN-0001",
+      "type": "emergency",
+      "name": "EMERGENCY ALERT",
+      "title": "EMERGENCY DISTRESS SIGNAL",
+      "address": "N/A",
+      "reportee": "Anonymous",
+      "source_platform": "node",
+      "date": 1597949682177,
+      "date_formatted": "August 21 2020",
+      "coordinates": {
+        "long": 121.9216569,
+        "lat": 14.5464783
+      },
+      "report_type": "MANUAL"
     }
   ],
-
-  "advisories": [
-    {
-      "uid": "12312313131313",
-      "title": "Storm Surge Advisory",
-      "details": "Warning, we strongly advise to stop fishing activities",
-      "affected_area": "Coron, Palawan",
-      "date": "8/15/2020"
-    }
-  ]
+  "devices": []
 }
