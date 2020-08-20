@@ -185,6 +185,7 @@
     {
       "id": "a53cdb03-1778-4a90-af28-0f927a23a1fa",
       "device_id": "HN-00001",
+      "type": "node",
       "first_interaction": 1597952039391,
       "last_interaction": 1597952050269
     }

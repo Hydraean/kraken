@@ -54,6 +54,12 @@ app.get("/events", (req, res) => {
   res.send(allEvents);
 });
 
+app.get("/devices", (req, res) => {
+  let allDevices = db.get("devices").value();
+
+  res.send(allDevices);
+});
+
 // broadcast network feed in small chunks
 app.get("/network/feed", (req, res) => {
   console.log("accessing feed...");
@@ -88,6 +94,7 @@ app.post("/report", (req, res) => {
         let newDevice = {
           id: guid(),
           device_id: deviceID,
+          type: deviceID.includes("HN-") ? "node" : "gateway",
           first_interaction: Date.now(),
           last_interaction: Date.now(),
         };
