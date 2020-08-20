@@ -4,7 +4,7 @@ const http = require("http").Server(app);
 const io = require("socket.io")(http);
 import cors from "cors";
 import bodyParser from "body-parser";
-import { formatReport } from "./helpers";
+import { formatReport, guid } from "./helpers";
 var path = require("path");
 
 require("dotenv").config();
@@ -71,11 +71,34 @@ app.post("/report", (req, res) => {
       let reportData = JSON.parse(parseData);
       let formattedReport = formatReport(reportData);
 
+      // save report to event collection
       db.get("events").value().push(formattedReport);
+
+      // record interaction with device.
+      let deviceID = reportData.payload
+        ? reportData.payload.uid
+        : reportData.device_id;
+
+      let deviceInstance = db
+        .get("devices")
+        .find({ device_id: deviceID })
+        .value();
+
+      if (!deviceInstance) {
+        let newDevice = {
+          id: guid(),
+          device_id: deviceID,
+          first_interaction: Date.now(),
+          last_interaction: Date.now(),
+        };
+        db.get("devices").value().push(newDevice);
+      } else {
+        deviceInstance.last_interaction = Date.now();
+      }
+
       db.write();
 
       let updatedRecords = db.get("events").value();
-
       // broadcast updated report records
       io.emit("feedUpdate", { data: updatedRecords });
 

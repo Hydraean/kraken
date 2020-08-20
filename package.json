@@ -23,7 +23,8 @@
   "scripts": {
     "start": "node ./build/index.js",
     "dev": "nodemon ./src/index.ts",
-    "build": "tsc -p ."
+    "build": "tsc -p .",
+    "run-build": "tsc -p . && node ./build/index.js"
   },
   "repository": {
     "type": "git",
