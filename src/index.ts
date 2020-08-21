@@ -178,6 +178,10 @@ app.post("/report/confirm", (req, res) => {
       reportInstance.status = "CONFIRMED";
       reportInstance.verifier = "Hydraean_Admin";
       db.write();
+
+      let updatedRecords = db.get("incidents").value();
+      io.emit("feedUpdate", { data: updatedRecords });
+
       res.status(200).send({
         message: "Successfully confirmed report",
       });
