@@ -36,7 +36,7 @@ export const formatReport = (report: any) => {
       id: guid(),
       details: report.details,
       device_id: report.device_id,
-      type: "emergency",
+      type: report.type,
       name: report.mode === "if" ? "ILLEGAL FISHING REPORT" : "EMERGENCY ALERT",
       title:
         report.mode === "if"
