@@ -153,6 +153,8 @@ app.get("/incidents/search", (req, res) => {
       "date",
       "details",
       "source_platform",
+      "type",
+      "status",
     ],
   };
 
