@@ -39,8 +39,6 @@ app.get("/", (req, res) => {
   res.send({
     message: "Kraken Demo API v.0",
     status: "running",
-    total_nodes: nodeList.length,
-    total_collections: Object.keys(collections).length,
   });
 });
 
