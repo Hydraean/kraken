@@ -155,6 +155,7 @@ app.get("/incidents/search", (req, res) => {
       "source_platform",
       "type",
       "status",
+      "address",
     ],
   };
 
