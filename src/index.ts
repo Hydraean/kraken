@@ -18,7 +18,7 @@ let port = process.env.PORT || 7000;
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static("client"));
+app.use(express.static("public"));
 http.listen(port);
 
 var collections = {};
@@ -36,7 +36,7 @@ export const db = low(adapter);
 
 // host landing page
 app.get("/", function (req, res) {
-  res.sendFile(path.join(__dirname + "/index.html"));
+  res.sendFile(path.join(__dirname + "/public/index.html"));
 });
 
 // get status
