@@ -1,4 +1,4 @@
-import express from "express";
+import express, { query } from "express";
 const app = express();
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
@@ -6,6 +6,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import { formatReport, guid } from "./helpers";
 var path = require("path");
+import Fuse from "fuse.js";
 
 require("dotenv").config();
 
@@ -120,6 +121,34 @@ app.post("/report", (req, res) => {
   } else {
     res.status(400).json({ message: "Error : Incomplete Data Provided" });
   }
+});
+
+// search devices
+app.get("/devices/search", (req, res) => {
+  let query: any = req.query.query;
+
+  let devicelist = db.get("devices").value();
+
+  const options = {
+    // isCaseSensitive: false,
+    // includeScore: false,
+    // shouldSort: true,
+    // includeMatches: false,
+    // findAllMatches: false,
+    // minMatchCharLength: 1,
+    // location: 0,
+    // threshold: 0.6,
+    // distance: 100,
+    // useExtendedSearch: false,
+    // ignoreLocation: false,
+    // ignoreFieldNorm: false,
+    keys: ["device_id"],
+  };
+
+  const fuse = new Fuse(devicelist, options);
+  let results = fuse.search(query);
+
+  res.send(results);
 });
 
 // Handle Socket Events
