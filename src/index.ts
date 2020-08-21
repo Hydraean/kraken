@@ -7,6 +7,7 @@ import bodyParser from "body-parser";
 import { formatReport, guid } from "./helpers";
 var path = require("path");
 import Fuse from "fuse.js";
+import moment from "moment";
 
 require("dotenv").config();
 
@@ -96,12 +97,14 @@ app.post("/report", (req, res) => {
           id: guid(),
           device_id: deviceID,
           type: deviceID.includes("HN-") ? "node" : "gateway",
-          first_interaction: Date.now(),
-          last_interaction: Date.now(),
+          first_interaction: moment().format("MMMM D YYYY - hh:mm:ss A"),
+          last_interaction: moment().format("MMMM D YYYY - hh:mm:ss A"),
         };
         db.get("devices").value().push(newDevice);
       } else {
-        deviceInstance.last_interaction = Date.now();
+        deviceInstance.last_interaction = moment().format(
+          "MMMM D YYYY - hh:mm:ss A"
+        );
       }
 
       db.write();
@@ -142,7 +145,7 @@ app.get("/devices/search", (req, res) => {
     // useExtendedSearch: false,
     // ignoreLocation: false,
     // ignoreFieldNorm: false,
-    keys: ["device_id"],
+    keys: ["device_id", "first_interaction", "last_interaction"],
   };
 
   const fuse = new Fuse(devicelist, options);

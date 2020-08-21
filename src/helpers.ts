@@ -27,8 +27,7 @@ export const formatReport = (report: any) => {
       address: reportData.addr.trim() !== "" ? reportData.addr : "N/A",
       reportee: reportData.name,
       source_platform: "node",
-      date: Date.now(),
-      date_formatted: moment().format("MMMM D YYYY"),
+      date: moment().format("MMMM D YYYY - hh:mm:ss A"),
       coordinates: report.location,
       report_type: "AUTO",
     };
@@ -46,8 +45,7 @@ export const formatReport = (report: any) => {
       address: "N/A",
       reportee: "Anonymous",
       source_platform: "node",
-      date: Date.now(),
-      date_formatted: moment().format("MMMM D YYYY"),
+      date: moment().format("MMMM D YYYY - hh:mm:ss A"),
       coordinates: report.coordinates,
       report_type: "MANUAL",
     };
