@@ -8,6 +8,7 @@ import { formatReport, guid } from "./helpers";
 var path = require("path");
 import Fuse from "fuse.js";
 import moment from "moment";
+import { report } from "process";
 
 require("dotenv").config();
 
@@ -164,6 +165,31 @@ app.get("/incidents/search", (req, res) => {
   results = results.map((x) => x.item);
 
   res.send(results);
+});
+
+// confirm / verify report
+
+app.post("/report/confirm", (req, res) => {
+  let reportID = req.body.id;
+
+  if (reportID) {
+    let reportInstance = db.get("incidents").find({ id: reportID }).value();
+    if (reportInstance) {
+      reportInstance.status = "CONFIRMED";
+      reportInstance.verifier = "Hydraean_Admin";
+      db.write();
+      res.status(200).send({
+        message: "Successfully confirmed report",
+      });
+    } else {
+      res.status(400).send({
+        message: "Process failed. Unable to find report with the ID provided",
+        status: 400,
+      });
+    }
+  } else {
+    res.status(400).send({ status: 400, message: "Incomplete data provided" });
+  }
 });
 
 // Handle Socket Events

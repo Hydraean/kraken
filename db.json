@@ -16,7 +16,8 @@
         "lat": 14.5446942
       },
       "report_type": "MANUAL",
-      "status": "PENDING"
+      "status": "CONFIRMED",
+      "verifier": "Hydraean_Admin"
     },
     {
       "id": "c4d54910-9688-43b2-a2e1-6fc64483a20c",
