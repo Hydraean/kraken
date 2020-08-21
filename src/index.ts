@@ -94,10 +94,12 @@ app.post("/report", (req, res) => {
           last_interaction: moment().format("MMMM D YYYY - hh:mm:ss A"),
         };
         db.get("devices").value().push(newDevice);
+        db.write();
       } else {
         deviceInstance.last_interaction = moment().format(
           "MMMM D YYYY - hh:mm:ss A"
         );
+        db.write();
       }
 
       db.write();
