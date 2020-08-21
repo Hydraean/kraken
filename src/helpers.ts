@@ -30,6 +30,7 @@ export const formatReport = (report: any) => {
       date: moment().format("MMMM D YYYY - hh:mm:ss A"),
       coordinates: report.location,
       report_type: "AUTO",
+      status: "PENDING",
     };
   } else {
     data = {
@@ -39,7 +40,7 @@ export const formatReport = (report: any) => {
       type: report.type,
       name: report.mode === "if" ? "ILLEGAL FISHING REPORT" : "EMERGENCY ALERT",
       title:
-        report.mode === "if"
+        report.type === "illegal_fishing"
           ? "ILLEGAL FISHING REPORT"
           : "EMERGENCY DISTRESS SIGNAL",
       address: "N/A",
@@ -48,6 +49,7 @@ export const formatReport = (report: any) => {
       date: moment().format("MMMM D YYYY - hh:mm:ss A"),
       coordinates: report.coordinates,
       report_type: "MANUAL",
+      status: "PENDING",
     };
   }
 
