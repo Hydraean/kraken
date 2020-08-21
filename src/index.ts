@@ -34,13 +34,8 @@ const adapter = new FileSync("db.json");
 
 export const db = low(adapter);
 
-// host landing page
-app.get("/", function (req, res) {
-  res.sendFile(path.join(__dirname + "/public/index.html"));
-});
-
 // get status
-app.get("/status", (req, res) => {
+app.get("/", (req, res) => {
   res.send({
     message: "Kraken Demo API v.0",
     status: "running",
