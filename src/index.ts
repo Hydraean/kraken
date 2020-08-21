@@ -90,13 +90,13 @@ app.post("/report", (req, res) => {
           id: guid(),
           device_id: deviceID,
           type: deviceID.includes("HN-") ? "node" : "gateway",
-          first_interaction: moment().format("MMMM D YYYY - hh:mm:ss A"),
-          last_interaction: moment().format("MMMM D YYYY - hh:mm:ss A"),
+          first_interaction: moment().format("MMMM D YYYY,hh:mm:ss A"),
+          last_interaction: moment().format("MMMM D YYYY,hh:mm:ss A"),
         };
         db.get("devices").value().push(newDevice);
       } else {
         deviceInstance.last_interaction = moment().format(
-          "MMMM D YYYY - hh:mm:ss A"
+          "MMMM D YYYY,hh:mm:ss A"
         );
       }
 

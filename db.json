@@ -10,7 +10,7 @@
       "address": "N/A",
       "reportee": "Anonymous",
       "source_platform": "node",
-      "date": "August 21 2020 - 04:42:03 PM",
+      "date": "August 21 2020,04:42:03 PM",
       "coordinates": {
         "long": 121.921724,
         "lat": 14.5446942
@@ -28,7 +28,7 @@
       "address": "N/A",
       "reportee": "Anonymous",
       "source_platform": "node",
-      "date": "August 21 2020 - 04:42:06 PM",
+      "date": "August 21 2020,04:42:06 PM",
       "coordinates": {
         "long": 121.9216743,
         "lat": 14.5422497
@@ -46,7 +46,7 @@
       "address": "N/A",
       "reportee": "Anonymous",
       "source_platform": "node",
-      "date": "August 21 2020 - 04:42:10 PM",
+      "date": "August 21 2020,04:42:10 PM",
       "coordinates": {
         "long": 121.9216547,
         "lat": 14.541204
@@ -60,15 +60,15 @@
       "id": "acf0d101-5375-420a-acf8-1a962f712bc0",
       "device_id": "HN-00001",
       "type": "node",
-      "first_interaction": "August 21 2020 - 10:53:03 AM",
-      "last_interaction": "August 21 2020 - 11:20:41 AM"
+      "first_interaction": "August 21 2020,10:53:03 AM",
+      "last_interaction": "August 21 2020,11:20:41 AM"
     },
     {
       "id": "acf0d101-5375-420a-acf8-1a962f712bc0",
       "device_id": "HG-00001",
       "type": "gateway",
-      "first_interaction": "August 21 2020 - 10:53:03 AM",
-      "last_interaction": "August 21 2020 - 10:53:06 AM"
+      "first_interaction": "August 21 2020,10:53:03 AM",
+      "last_interaction": "August 21 2020,10:53:06 AM"
     }
   ]
 }
