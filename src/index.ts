@@ -50,8 +50,8 @@ app.get("/status", (req, res) => {
 });
 
 // get all events
-app.get("/events", (req, res) => {
-  let allEvents = db.get("events").value();
+app.get("/incidents", (req, res) => {
+  let allEvents = db.get("incidents").value();
 
   res.send(allEvents);
 });
@@ -80,7 +80,7 @@ app.post("/report", (req, res) => {
       let formattedReport = formatReport(reportData);
 
       // save report to event collection
-      db.get("events").value().push(formattedReport);
+      db.get("incidents").value().push(formattedReport);
 
       // record interaction with device.
       let deviceID = reportData.payload
@@ -109,7 +109,7 @@ app.post("/report", (req, res) => {
 
       db.write();
 
-      let updatedRecords = db.get("events").value();
+      let updatedRecords = db.get("incidents").value();
       // broadcast updated report records
       io.emit("feedUpdate", { data: updatedRecords });
 
@@ -133,23 +133,37 @@ app.get("/devices/search", (req, res) => {
   let devicelist = db.get("devices").value();
 
   const options = {
-    // isCaseSensitive: false,
-    // includeScore: false,
-    // shouldSort: true,
-    // includeMatches: false,
-    // findAllMatches: false,
-    // minMatchCharLength: 1,
-    // location: 0,
-    // threshold: 0.6,
-    // distance: 100,
-    // useExtendedSearch: false,
-    // ignoreLocation: false,
-    // ignoreFieldNorm: false,
     keys: ["device_id", "first_interaction", "last_interaction"],
   };
 
   const fuse = new Fuse(devicelist, options);
-  let results = fuse.search(query);
+  let results: any = fuse.search(query);
+  results = results.map((x) => x.item);
+  res.send(results);
+});
+
+// search incidents
+app.get("/incidents/search", (req, res) => {
+  let query: any = req.query.query;
+
+  let incidentList = db.get("incidents").value();
+
+  const options = {
+    keys: [
+      "device_id",
+      "name",
+      "title",
+      "reportee",
+      "report_type",
+      "date",
+      "details",
+      "source_platform",
+    ],
+  };
+
+  const fuse = new Fuse(incidentList, options);
+  let results: any = fuse.search(query);
+  results = results.map((x) => x.item);
 
   res.send(results);
 });
