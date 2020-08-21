@@ -106,6 +106,8 @@ app.post("/report", (req, res) => {
       // broadcast updated report records
       io.emit("feedUpdate", { data: updatedRecords });
 
+      console.log(`KRAKEN API: Report recieved from device: ${deviceID}`);
+
       res.json({ status: 200, message: "Kraken: Raw report recieved." });
     } catch (err) {
       console.log(err);
