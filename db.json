@@ -2,7 +2,7 @@
   "incidents": [
     {
       "id": "ca795e6b-39c8-4f06-af6e-86d6b729fb6d",
-      "details": "asdsadasdasda",
+      "details": "Test Illegal fishing report",
       "device_id": "HN-00001",
       "type": "illegal_fishing",
       "name": "ILLEGAL FISHING REPORT",
@@ -19,7 +19,7 @@
     },
     {
       "id": "6b82257c-6f3c-4e97-bc11-0fd872198425",
-      "details": "asdsadasdasda",
+      "details": "Test Illegal Fishing Report",
       "device_id": "HN-00001",
       "type": "illegal_fishing",
       "name": "ILLEGAL FISHING REPORT",
@@ -45,8 +45,8 @@
     },
     {
       "id": "acf0d101-5375-420a-acf8-1a962f712bc0",
-      "device_id": "HN-00002",
-      "type": "node",
+      "device_id": "HG-00001",
+      "type": "gateway",
       "first_interaction": "August 21 2020 - 10:53:03 AM",
       "last_interaction": "August 21 2020 - 10:53:06 AM"
     }
