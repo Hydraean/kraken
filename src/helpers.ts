@@ -28,7 +28,7 @@ export const formatReport = (report: any) => {
       reportee: reportData.name,
       source_platform: "node",
       date: moment().format("MMMM D YYYY,hh:mm:ss A"),
-      coordinates: reportData.location,
+      coordinates: report.location,
       report_type: "AUTO",
       status: "PENDING",
     };
