@@ -12,6 +12,15 @@ function getRandomInRange(from, to, fixed) {
   return (Math.random() * (to - from) + from).toFixed(fixed) * 1;
 }
 
+// const randomCoordinates1 = () => {
+//   let coordinates = {
+//     lat: getRandomInRange(14.5, 14.6, 5),
+//     long: getRandomInRange(120.7, 120.8, 5),
+//   };
+
+//   return coordinates;
+// };
+
 const randomCoordinates2 = () => {
   let coordinates = {
     lat: getRandomInRange(14.5, 14.6, 5),
@@ -41,7 +50,7 @@ export const formatReport = (report: any) => {
       reportee: reportData.name,
       source_platform: "node",
       date: moment().format("MMMM D YYYY,hh:mm:ss A"),
-      coordinates: randomCoordinates2(),
+      coordinates: report.location,
       report_type: "AUTO",
       status: "PENDING",
     };
@@ -63,7 +72,7 @@ export const formatReport = (report: any) => {
       reportee: "Anonymous",
       source_platform: "node",
       date: moment().format("MMMM D YYYY,hh:mm:ss A"),
-      coordinates: randomCoordinates2(),
+      coordinates: report.coordinates,
       report_type: "MANUAL",
       status: "PENDING",
     };
