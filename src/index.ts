@@ -4,7 +4,7 @@ const http = require("http").Server(app);
 const io = require("socket.io")(http);
 import cors from "cors";
 import bodyParser from "body-parser";
-import { formatReport, guid } from "./helpers";
+import { formatReport, guid, isFloat } from "./helpers";
 var path = require("path");
 import Fuse from "fuse.js";
 import moment from "moment";
@@ -193,6 +193,49 @@ app.post("/report/confirm", (req, res) => {
     }
   } else {
     res.status(400).send({ status: 400, message: "Incomplete data provided" });
+  }
+});
+
+// recieve report
+
+app.post("/add/report", (req, res) => {
+  let payload = req.body;
+
+  console.log(req.body);
+
+  if (payload.device_id && payload.device_id.trim() !== "") {
+    if (
+      payload.coordinates &&
+      isFloat(payload.coordinates.lat) &&
+      isFloat(payload.coordinates.long)
+    ) {
+      let newReport = {
+        id: guid(),
+        details: payload.details ? payload.details : "N/A",
+        device_id: payload.device_id,
+        type: payload.type ? payload.type : "emergency",
+        name: payload.type ? payload.type : "emergency",
+        title: payload.title ? payload.title : "WEB: Report Event",
+        address: "N/A",
+        reportee: payload.reportee ? payload.reportee : "Anonymous",
+        source_platform: "Web",
+        date: moment().format("MMMM D YYYY,hh:mm:ss A"),
+        coordinates: {
+          long: payload.coordinates.long,
+          lat: payload.coordinates.lat,
+        },
+        report_type: "AUTO",
+        status: "PENDING",
+      };
+
+      console.log(newReport);
+
+      res.send("ok");
+    } else {
+      res.status(400).send({ message: "Provide proper GPS Coordinates" });
+    }
+  } else {
+    res.status(400).send({ message: "Imcomplete data provided." });
   }
 });
 

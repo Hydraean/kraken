@@ -21,6 +21,10 @@ const randomCoordinates2 = () => {
   return coordinates;
 };
 
+export function isFloat(n) {
+  return Number(n) === n && n % 1 !== 0;
+}
+
 export const formatReport = (report: any) => {
   let data;
 
