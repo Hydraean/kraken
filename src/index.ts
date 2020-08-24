@@ -201,8 +201,6 @@ app.post("/report/confirm", (req, res) => {
 app.post("/add/report", (req, res) => {
   let payload = req.body;
 
-  console.log(req.body);
-
   if (payload.device_id && payload.device_id.trim() !== "") {
     if (
       payload.coordinates &&
@@ -216,7 +214,7 @@ app.post("/add/report", (req, res) => {
         type: payload.type ? payload.type : "emergency",
         name: payload.type ? payload.type : "emergency",
         title: payload.title ? payload.title : "WEB: Report Event",
-        address: "N/A",
+        address: payload.address ? payload.address : "N/A",
         reportee: payload.reportee ? payload.reportee : "Anonymous",
         source_platform: "Web",
         date: moment().format("MMMM D YYYY,hh:mm:ss A"),
@@ -228,9 +226,44 @@ app.post("/add/report", (req, res) => {
         status: "PENDING",
       };
 
-      console.log(newReport);
+      // save report to event collection
+      db.get("incidents").value().push(newReport);
 
-      res.send("ok");
+      // record interaction with device.
+      let deviceID = payload.device_id;
+
+      let deviceInstance = db
+        .get("devices")
+        .find({ device_id: deviceID })
+        .value();
+
+      if (!deviceInstance) {
+        let newDevice = {
+          id: guid(),
+          device_id: deviceID,
+          type: deviceID.includes("HN-") ? "node" : "gateway",
+          first_interaction: moment().format("MMMM D YYYY,hh:mm:ss A"),
+          last_interaction: moment().format("MMMM D YYYY,hh:mm:ss A"),
+        };
+        db.get("devices").value().push(newDevice);
+      } else {
+        deviceInstance.last_interaction = moment().format(
+          "MMMM D YYYY,hh:mm:ss A"
+        );
+      }
+
+      db.write();
+
+      let updatedRecords = db.get("incidents").value();
+      // broadcast updated report records
+      io.emit("feedUpdate", { data: updatedRecords });
+
+      console.log(`KRAKEN API: Report recieved from device: ${deviceID}`);
+
+      res.status(200).send({
+        message: "Report Saved!",
+        status: "ok",
+      });
     } else {
       res.status(400).send({ message: "Provide proper GPS Coordinates" });
     }

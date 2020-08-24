@@ -70,6 +70,27 @@
       "type": "gateway",
       "first_interaction": "August 21 2020,10:53:03 AM",
       "last_interaction": "August 21 2020,10:53:06 AM"
+    },
+    {
+      "id": "42cccb42-ece9-4e6f-ba91-1c8cd9912b70",
+      "device_id": "HN-e0e95010-5e16-45d8-8cb3-160b1bd9b3c7",
+      "type": "node",
+      "first_interaction": "August 25 2020,01:17:21 AM",
+      "last_interaction": "August 25 2020,01:17:21 AM"
+    },
+    {
+      "id": "7773c757-f1d8-4296-a0b6-c31df7c16d6e",
+      "device_id": "HN-2176b159-b761-4640-9b03-234299a828e9",
+      "type": "node",
+      "first_interaction": "August 25 2020,01:18:37 AM",
+      "last_interaction": "August 25 2020,01:18:37 AM"
+    },
+    {
+      "id": "33645ca5-3df0-4ed2-8bda-4f4d1a580de3",
+      "device_id": "HN-1ab1292a-4337-43c4-a716-610c8fd84b99",
+      "type": "node",
+      "first_interaction": "August 25 2020,01:20:32 AM",
+      "last_interaction": "August 25 2020,01:20:48 AM"
     }
   ]
 }
