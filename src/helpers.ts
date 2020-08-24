@@ -24,6 +24,8 @@ const randomCoordinates2 = () => {
 export const formatReport = (report: any) => {
   let data;
 
+  console.log(report);
+
   if (report.payload) {
     let reportData = report.payload;
     data = {
