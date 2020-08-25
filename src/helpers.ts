@@ -1,4 +1,4 @@
-import moment from "moment";
+import moment from "moment-timezone";
 
 export const guid = () => {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
@@ -46,7 +46,7 @@ export const formatReport = (report: any) => {
       address: reportData.addr.trim() !== "" ? reportData.addr : "N/A",
       reportee: reportData.name,
       source_platform: "node",
-      date: moment().format("MMMM D YYYY,hh:mm:ss A"),
+      date: moment().tz("Asia/Taipei").format("MMMM D YYYY,hh:mm:ss A"),
       coordinates: randomCoordinates2(),
       report_type: "AUTO",
       status: "PENDING",
@@ -68,7 +68,7 @@ export const formatReport = (report: any) => {
       address: "N/A",
       reportee: "Anonymous",
       source_platform: "node",
-      date: moment().format("MMMM D YYYY,hh:mm:ss A"),
+      date: moment().tz("Asia/Taipei").format("MMMM D YYYY,hh:mm:ss A"),
       coordinates: randomCoordinates2(),
       report_type: "MANUAL",
       status: "PENDING",

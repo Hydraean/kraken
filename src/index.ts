@@ -5,10 +5,8 @@ const io = require("socket.io")(http);
 import cors from "cors";
 import bodyParser from "body-parser";
 import { formatReport, guid, isFloat } from "./helpers";
-var path = require("path");
 import Fuse from "fuse.js";
-import moment from "moment";
-import { report } from "process";
+import moment from "moment-timezone";
 
 require("dotenv").config();
 
@@ -91,14 +89,18 @@ app.post("/report", (req, res) => {
           id: guid(),
           device_id: deviceID,
           type: deviceID.includes("HN-") ? "node" : "gateway",
-          first_interaction: moment().format("MMMM D YYYY,hh:mm:ss A"),
-          last_interaction: moment().format("MMMM D YYYY,hh:mm:ss A"),
+          first_interaction: moment()
+            .tz("Asia/Taipei")
+            .format("MMMM D YYYY,hh:mm:ss A"),
+          last_interaction: moment()
+            .tz("Asia/Taipei")
+            .format("MMMM D YYYY,hh:mm:ss A"),
         };
         db.get("devices").value().push(newDevice);
       } else {
-        deviceInstance.last_interaction = moment().format(
-          "MMMM D YYYY,hh:mm:ss A"
-        );
+        deviceInstance.last_interaction = moment()
+          .tz("Asia/Taipei")
+          .format("MMMM D YYYY,hh:mm:ss A");
       }
 
       db.write();
@@ -217,7 +219,7 @@ app.post("/add/report", (req, res) => {
         address: payload.address ? payload.address : "N/A",
         reportee: payload.reportee ? payload.reportee : "Anonymous",
         source_platform: "Web",
-        date: moment().format("MMMM D YYYY,hh:mm:ss A"),
+        date: moment().tz("Asia/Taipei").format("MMMM D YYYY,hh:mm:ss A"),
         coordinates: {
           long: payload.coordinates.long,
           lat: payload.coordinates.lat,
@@ -242,14 +244,18 @@ app.post("/add/report", (req, res) => {
           id: guid(),
           device_id: deviceID,
           type: deviceID.includes("HN-") ? "node" : "gateway",
-          first_interaction: moment().format("MMMM D YYYY,hh:mm:ss A"),
-          last_interaction: moment().format("MMMM D YYYY,hh:mm:ss A"),
+          first_interaction: moment()
+            .tz("Asia/Taipei")
+            .format("MMMM D YYYY,hh:mm:ss A"),
+          last_interaction: moment()
+            .tz("Asia/Taipei")
+            .format("MMMM D YYYY,hh:mm:ss A"),
         };
         db.get("devices").value().push(newDevice);
       } else {
-        deviceInstance.last_interaction = moment().format(
-          "MMMM D YYYY,hh:mm:ss A"
-        );
+        deviceInstance.last_interaction = moment()
+          .tz("Asia/Taipei")
+          .format("MMMM D YYYY,hh:mm:ss A");
       }
 
       db.write();
