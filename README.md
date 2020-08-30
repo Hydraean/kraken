@@ -5,7 +5,7 @@
 ### Main Features:
 
 - Supports Real-time Updates via Websockets using Socket.io
-- Supports Rest API endpoints
+- Supports REST API endpoints
 - Open, Cross Origin Request Enabled.
 
 
