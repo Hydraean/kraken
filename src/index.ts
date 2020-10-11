@@ -65,6 +65,8 @@ app.get("/network/feed", (req, res) => {
 app.post("/report", (req, res) => {
   let payload = req.body.data;
 
+  console.log(payload);
+
   if (payload) {
     var parseData = payload.replace(/"{/gi, "{").replace(/}"/gi, "}");
     try {
