@@ -280,6 +280,12 @@ app.post("/add/report", (req, res) => {
   }
 });
 
+// recieve and display payload data
+
+app.post("/orion/test", (req, res) => {
+  console.log(req.body.data);
+});
+
 // Handle Socket Events
 io.sockets.on("connection", function (socket: any) {
   // for initilisation of a node
