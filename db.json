@@ -54,6 +54,24 @@
       },
       "report_type": "MANUAL",
       "status": "PENDING"
+    },
+    {
+      "id": "9e402001-8f70-42d5-b630-272493761977",
+      "details": "EMERGENCY DISTRESS CALL",
+      "device_id": "HN-00001",
+      "type": "illegal_fishing",
+      "name": "BLAST FISHING",
+      "title": "BLAST FISHING ACTIVITY",
+      "address": "N/A",
+      "reportee": "Anonymous",
+      "source_platform": "node",
+      "date": "August 21 2020,04:42:10 PM",
+      "coordinates": {
+        "long": 120.88155,
+        "lat": 14.580805
+      },
+      "report_type": "MANUAL",
+      "status": "PENDING"
     }
   ],
   "devices": [
