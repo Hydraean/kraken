@@ -1,4 +1,4 @@
-import express, { query } from "express";
+import express from "express";
 const app = express();
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
