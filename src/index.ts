@@ -7,6 +7,7 @@ import bodyParser from "body-parser";
 import { formatReport, guid, isFloat } from "./helpers";
 import Fuse from "fuse.js";
 import moment from "moment-timezone";
+const fma_data = require("./fma.json");
 
 require("dotenv").config();
 
@@ -278,6 +279,10 @@ app.post("/add/report", (req, res) => {
   } else {
     res.status(400).send({ message: "Imcomplete data provided." });
   }
+});
+
+app.get("/dataset/fma", (req, res) => {
+  res.send(fma_data);
 });
 
 // recieve and display payload data
