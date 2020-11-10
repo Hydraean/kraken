@@ -7,7 +7,7 @@ import bodyParser from "body-parser";
 import { formatReport, guid, isFloat } from "./helpers";
 import Fuse from "fuse.js";
 import moment from "moment-timezone";
-const fma_data = require("./fma.json");
+const fma_data = require("../fma.json");
 
 require("dotenv").config();
 
