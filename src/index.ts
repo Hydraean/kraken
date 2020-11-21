@@ -21,9 +21,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static("public"));
 http.listen(port);
 
-var collections = {};
-var nodeList = [];
-
 console.log(`===============================`);
 console.log(`Kraken Demo API: ${port}`);
 console.log(`===============================`);

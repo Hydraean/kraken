@@ -24,5 +24,3 @@ const getFMA = (coordinates) => {
     return false;
   }
 };
-
-console.log(getFMA(coords));
