@@ -1,6 +1,6 @@
 # Kraken
 
-> The backed service for the Seantinel Project built with NodeJS
+> The backend service for the Seantinel Project built with NodeJS
 
 ### Main Features:
 
