@@ -5,16 +5,14 @@ const GeoJsonGeometriesLookup = require("geojson-geometries-lookup");
 const glookup = new GeoJsonGeometriesLookup(fma_data);
 
 // Determine if user in under Fishery Manage Area GeoJSON Data
-// coordinates format: [lat, log]
-const isFMA = (coordinates) => {
+// coordinates format: [lng, lat]
+export const isFMA = (coordinates) => {
   return d3geo.geoContains(fma_data, coordinates);
 };
 
-let coords = [118.500998, 10.512506];
-
 // Look up which FMA a certain gps coodinate belongs to.
-// coordinates format: [lat, log]
-const getFMA = (coordinates) => {
+// coordinates format: [lng, lat]
+export const getFMA = (coordinates) => {
   let targetCoordinates = { type: "Point", coordinates: coordinates };
   let result = glookup.getContainers(targetCoordinates, { ignorePoints: true });
 

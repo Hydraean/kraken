@@ -5,6 +5,7 @@ const io = require("socket.io")(http);
 import cors from "cors";
 import bodyParser from "body-parser";
 import { formatReport, guid, isFloat } from "./helpers";
+import { getFMA } from "./fmaMapper";
 import Fuse from "fuse.js";
 import moment from "moment-timezone";
 const fma_data = require("../fma.json");
@@ -46,17 +47,11 @@ app.get("/incidents", (req, res) => {
   res.send(allEvents);
 });
 
+// get all devices
 app.get("/devices", (req, res) => {
   let allDevices = db.get("devices").value();
 
   res.send(allDevices);
-});
-
-// broadcast network feed in small chunks
-app.get("/network/feed", (req, res) => {
-  console.log("accessing feed...");
-  let data = db.get("advisories").value();
-  res.send(data);
 });
 
 // recieve raw reports
@@ -286,6 +281,77 @@ app.get("/dataset/fma", (req, res) => {
 
 app.post("/orion/test", (req, res) => {
   console.log(req.body.data);
+  res.send("data recieved");
+});
+
+// kraken test mode
+
+app.post("/kraken/test", (req, res) => {
+  let reqData = req.body.data;
+  let resData = {};
+
+  if (reqData) {
+    try {
+      // parse payload
+      let rData = JSON.parse(reqData);
+      let reportInstanceCheck = db
+        .get("incidents")
+        .find({ id: rData.id })
+        .value();
+
+      let fma_classification = getFMA([rData.cr.lg, rData.cr.lt]);
+
+      // check if fma classification is valid.
+      if (fma_classification) {
+        // new report data mapped
+        resData = {
+          id: rData.id,
+          details: rData.dt,
+          device_id: rData.di,
+          type: rData.tp,
+          name:
+            rData.tp === "if" ? "Illegal Fishing Report" : "Emergency Report",
+          title:
+            rData.tp === "if" ? "Illegal Fishing Report" : "Emergency Report",
+          fma: fma_classification,
+          reportee: rData.rp,
+          source_platform: rData.sp,
+          date_reported: rData.dn,
+          date_created: Date.now(),
+          date_updated: Date.now(),
+          date_confirmed: null,
+          coordinates: {
+            long: rData.cr.lg,
+            lat: rData.cr.lt,
+          },
+          report_type: rData.md === "0" ? "manual" : "auto",
+          status: "PENDING",
+          updates: [],
+        };
+
+        // check if the report instance exists
+        if (!reportInstanceCheck) {
+          db.get("incidents").value().push(resData);
+          let updatedRecords = db.get("incidents").value();
+          io.emit("feedUpdate", { data: updatedRecords });
+          db.write();
+        } else {
+        }
+
+        // send valid response
+        res.send(resData);
+      } else {
+        res
+          .status(400)
+          .send({ message: "Invalid Coordinates, no FMA classification!" });
+      }
+    } catch (err) {
+      console.log(err);
+      res.status(400).send("Error: Invalid data format");
+    }
+  } else {
+    res.status(400).send("Missing data parameter.");
+  }
 });
 
 // Handle Socket Events
