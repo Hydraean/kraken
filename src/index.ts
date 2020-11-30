@@ -336,10 +336,34 @@ app.post("/kraken/test", (req, res) => {
           io.emit("feedUpdate", { data: updatedRecords });
           db.write();
         } else {
+          // update existing report
+          console.log("updating report");
+          let existingReport = db
+            .get("incidents")
+            .find({ id: rData.id })
+            .value();
+
+          let reportUpdate = {
+            coordinates: { lat: rData.cr.lt, long: rData.cr.lg },
+            date: rData.dn,
+          };
+
+          existingReport.date_updated = Date.now();
+          let checkUpdateEntry = existingReport.updates.find(
+            ({ coordinates }) =>
+              coordinates.lat === reportUpdate.coordinates.lat &&
+              coordinates.long === reportUpdate.coordinates.long
+          );
+
+          // write report update of coordinates to db if it doesn't exist.
+          if (!checkUpdateEntry) {
+            existingReport.updates.push(reportUpdate);
+            db.write();
+          }
         }
 
         // send valid response
-        res.send(resData);
+        res.status(200).send({ message: "Report save successfully." });
       } else {
         res
           .status(400)

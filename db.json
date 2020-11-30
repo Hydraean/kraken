@@ -396,6 +396,50 @@
       },
       "report_type": "AUTO",
       "status": "PENDING"
+    },
+    {
+      "id": "100213123",
+      "details": "Illegal fishing activity, dynamite fishing here a manila bay",
+      "device_id": "HN-00001",
+      "type": "cr",
+      "name": "Emergency Report",
+      "title": "Emergency Report",
+      "fma": "FMA-06",
+      "reportee": "Anonymous",
+      "source_platform": "node",
+      "date_reported": "August 21 2020,04:42:03 PM",
+      "date_created": 1606693050508,
+      "date_updated": 1606697090643,
+      "date_confirmed": null,
+      "coordinates": {
+        "long": "120.7273",
+        "lat": "14.59647"
+      },
+      "report_type": "auto",
+      "status": "PENDING",
+      "updates": [
+        {
+          "coordinates": {
+            "lat": "14.59647",
+            "long": "120.7273"
+          },
+          "date": "August 21 2020,04:42:03 PM"
+        },
+        {
+          "coordinates": {
+            "lat": "14.55647",
+            "long": "120.7273"
+          },
+          "date": "August 21 2020,04:42:03 PM"
+        },
+        {
+          "coordinates": {
+            "lat": "14.55645",
+            "long": "120.7273"
+          },
+          "date": "August 21 2020,04:42:03 PM"
+        }
+      ]
     }
   ],
   "devices": [
