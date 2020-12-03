@@ -308,7 +308,7 @@ app.post("/kraken/test", (req, res) => {
           id: rData.id,
           details: rData.dt,
           device_id: rData.di,
-          type: rData.tp,
+          type: rData.tp === "cr" ? "emergency" : "illegal_fishing",
           name:
             rData.tp === "if" ? "Illegal Fishing Report" : "Emergency Report",
           title:
