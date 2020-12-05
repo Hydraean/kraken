@@ -129,10 +129,17 @@ app.get("/devices/search", (req, res) => {
     keys: ["device_id", "first_interaction", "last_interaction"],
   };
 
-  const fuse = new Fuse(devicelist, options);
-  let results: any = fuse.search(query);
-  results = results.map((x) => x.item);
-  res.send(results);
+  if (query) {
+    const fuse = new Fuse(devicelist, options);
+    let results: any = fuse.search(query);
+    results = results.map((x) => x.item);
+    res.send(results);
+  } else {
+    res.status(400).send({
+      message: "Search failed. No query provided.",
+      status: 400,
+    });
+  }
 });
 
 // search incidents
@@ -153,15 +160,22 @@ app.get("/incidents/search", (req, res) => {
       "source_platform",
       "type",
       "status",
-      "address",
+      "fma",
     ],
   };
 
-  const fuse = new Fuse(incidentList, options);
-  let results: any = fuse.search(query);
-  results = results.map((x) => x.item);
+  if (query) {
+    const fuse = new Fuse(incidentList, options);
+    let results: any = fuse.search(query);
+    results = results.map((x) => x.item);
 
-  res.send(results);
+    res.send(results);
+  } else {
+    res.status(400).send({
+      message: "Search failed. No query provided.",
+      status: 400,
+    });
+  }
 });
 
 // confirm / verify report
