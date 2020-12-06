@@ -100,8 +100,8 @@ app.post("/report", (req, res) => {
 
       db.write();
 
-      let updatedRecords = db.get("incidents").value();
       // broadcast updated report records
+      let updatedRecords = db.get("incidents").value();
       io.emit("feedUpdate", { data: updatedRecords });
 
       console.log(`KRAKEN API: Report recieved from device: ${deviceID}`);
@@ -291,16 +291,7 @@ app.get("/dataset/fma", (req, res) => {
   res.send(fma_data);
 });
 
-// recieve and display payload data
-
-app.post("/orion/test", (req, res) => {
-  console.log(req.body.data);
-  res.send("data recieved");
-});
-
-// kraken test mode
-
-app.post("/kraken/test", (req, res) => {
+app.post("/v1/report", (req, res) => {
   let reqData = req.body.data;
   let resData = {};
 
@@ -313,7 +304,9 @@ app.post("/kraken/test", (req, res) => {
         .find({ id: rData.id })
         .value();
 
-      let fma_classification = getFMA([rData.cr.lg, rData.cr.lt]);
+      // ::NOTE for testing report endpoint refactor the fma_classification variable is fixed to FMA-06
+      // let fma_classification = getFMA([rData.cr.lg, rData.cr.lt]);
+      let fma_classification = "FMA-06";
 
       // check if fma classification is valid.
       if (fma_classification) {
@@ -378,6 +371,10 @@ app.post("/kraken/test", (req, res) => {
 
         // send valid response
         res.status(200).send({ message: "Report save successfully." });
+
+        // broadcast updated report records
+        let updatedRecords = db.get("incidents").value();
+        io.emit("feedUpdate", { data: updatedRecords });
       } else {
         res
           .status(400)
@@ -390,6 +387,13 @@ app.post("/kraken/test", (req, res) => {
   } else {
     res.status(400).send("Missing data parameter.");
   }
+});
+
+// recieve and display payload data
+
+app.post("/orion/test", (req, res) => {
+  console.log(req.body.data);
+  res.send("data recieved");
 });
 
 // Handle Socket Events
