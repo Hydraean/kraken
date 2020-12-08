@@ -56,67 +56,162 @@ app.get("/devices", (req, res) => {
 
 // recieve raw reports
 app.post("/report", (req, res) => {
-  let payload = req.body.data;
+  let reqData = req.body.data;
+  let resData = {};
 
-  console.log(payload);
-
-  if (payload) {
-    var parseData = payload.replace(/"{/gi, "{").replace(/}"/gi, "}");
+  if (reqData) {
     try {
-      let reportData = JSON.parse(parseData);
-      let formattedReport = formatReport(reportData);
-
-      // save report to event collection
-      db.get("incidents").value().push(formattedReport);
-
-      // record interaction with device.
-      let deviceID = reportData.payload
-        ? reportData.payload.uid
-        : reportData.device_id;
-
-      let deviceInstance = db
-        .get("devices")
-        .find({ device_id: deviceID })
+      // parse payload
+      let rData = JSON.parse(reqData);
+      let reportInstanceCheck = db
+        .get("incidents")
+        .find({ id: rData.id })
         .value();
 
-      if (!deviceInstance) {
-        let newDevice = {
-          id: guid(),
-          device_id: deviceID,
-          type: deviceID.includes("HN-") ? "node" : "gateway",
-          first_interaction: moment()
-            .tz("Asia/Taipei")
-            .format("MMMM D YYYY,hh:mm:ss A"),
-          last_interaction: moment()
-            .tz("Asia/Taipei")
-            .format("MMMM D YYYY,hh:mm:ss A"),
+      // ::NOTE for testing report endpoint refactor the fma_classification variable is fixed to FMA-06
+      // let fma_classification = getFMA([rData.cr.lg, rData.cr.lt]);
+      let fma_classification = "FMA-06";
+
+      // check if fma classification is valid.
+      if (fma_classification) {
+        // new report data mapped
+        resData = {
+          id: rData.id,
+          details: rData.dt,
+          device_id: rData.di,
+          type: rData.tp === "cr" ? "emergency" : "illegal_fishing",
+          name:
+            rData.tp === "if" ? "Illegal Fishing Report" : "Emergency Report",
+          title:
+            rData.tp === "if" ? "Illegal Fishing Report" : "Emergency Report",
+          fma: fma_classification,
+          reportee: rData.rp,
+          source_platform: rData.sp,
+          date_reported: rData.dn,
+          date_created: Date.now(),
+          date_updated: Date.now(),
+          date_confirmed: null,
+          coordinates: {
+            long: rData.cr.lg,
+            lat: rData.cr.lt,
+          },
+          report_type: rData.md === "0" ? "manual" : "auto",
+          status: "PENDING",
+          updates: [],
         };
-        db.get("devices").value().push(newDevice);
+
+        // check if the report instance exists
+        if (!reportInstanceCheck) {
+          db.get("incidents").value().push(resData);
+          let updatedRecords = db.get("incidents").value();
+          io.emit("feedUpdate", { data: updatedRecords });
+          db.write();
+        } else {
+          // update existing report
+          console.log("updating report");
+          let existingReport = db
+            .get("incidents")
+            .find({ id: rData.id })
+            .value();
+
+          let reportUpdate = {
+            coordinates: { lat: rData.cr.lt, long: rData.cr.lg },
+            date: rData.dn,
+          };
+
+          existingReport.date_updated = Date.now();
+          let checkUpdateEntry = existingReport.updates.find(
+            ({ coordinates }) =>
+              coordinates.lat === reportUpdate.coordinates.lat &&
+              coordinates.long === reportUpdate.coordinates.long
+          );
+
+          // write report update of coordinates to db if it doesn't exist.
+          if (!checkUpdateEntry) {
+            existingReport.updates.push(reportUpdate);
+            db.write();
+          }
+        }
+
+        // send valid response
+        res.status(200).send({ message: "Report save successfully." });
+
+        // broadcast updated report records
+        let updatedRecords = db.get("incidents").value();
+        io.emit("feedUpdate", { data: updatedRecords });
       } else {
-        deviceInstance.last_interaction = moment()
-          .tz("Asia/Taipei")
-          .format("MMMM D YYYY,hh:mm:ss A");
+        res
+          .status(400)
+          .send({ message: "Invalid Coordinates, no FMA classification!" });
       }
-
-      db.write();
-
-      // broadcast updated report records
-      let updatedRecords = db.get("incidents").value();
-      io.emit("feedUpdate", { data: updatedRecords });
-
-      console.log(`KRAKEN API: Report recieved from device: ${deviceID}`);
-
-      res.json({ status: 200, message: "Kraken: Raw report recieved." });
     } catch (err) {
       console.log(err);
-      res.status(400).json({
-        message:
-          "Error : Malformed Request, check the payload format and try again.",
-      });
+      res.status(400).send("Error: Invalid data format");
     }
   } else {
-    res.status(400).json({ message: "Error : Incomplete Data Provided" });
+    res.status(400).send("Missing data parameter.");
   }
+  // let payload = req.body.data;
+
+  // console.log(payload);
+
+  // if (payload) {
+  //   var parseData = payload.replace(/"{/gi, "{").replace(/}"/gi, "}");
+  //   try {
+  //     let reportData = JSON.parse(parseData);
+  //     let formattedReport = formatReport(reportData);
+
+  //     // save report to event collection
+  //     db.get("incidents").value().push(formattedReport);
+
+  //     // record interaction with device.
+  //     let deviceID = reportData.payload
+  //       ? reportData.payload.uid
+  //       : reportData.device_id;
+
+  //     let deviceInstance = db
+  //       .get("devices")
+  //       .find({ device_id: deviceID })
+  //       .value();
+
+  //     if (!deviceInstance) {
+  //       let newDevice = {
+  //         id: guid(),
+  //         device_id: deviceID,
+  //         type: deviceID.includes("HN-") ? "node" : "gateway",
+  //         first_interaction: moment()
+  //           .tz("Asia/Taipei")
+  //           .format("MMMM D YYYY,hh:mm:ss A"),
+  //         last_interaction: moment()
+  //           .tz("Asia/Taipei")
+  //           .format("MMMM D YYYY,hh:mm:ss A"),
+  //       };
+  //       db.get("devices").value().push(newDevice);
+  //     } else {
+  //       deviceInstance.last_interaction = moment()
+  //         .tz("Asia/Taipei")
+  //         .format("MMMM D YYYY,hh:mm:ss A");
+  //     }
+
+  //     db.write();
+
+  //     // broadcast updated report records
+  //     let updatedRecords = db.get("incidents").value();
+  //     io.emit("feedUpdate", { data: updatedRecords });
+
+  //     console.log(`KRAKEN API: Report recieved from device: ${deviceID}`);
+
+  //     res.json({ status: 200, message: "Kraken: Raw report recieved." });
+  //   } catch (err) {
+  //     console.log(err);
+  //     res.status(400).json({
+  //       message:
+  //         "Error : Malformed Request, check the payload format and try again.",
+  //     });
+  //   }
+  // } else {
+  //   res.status(400).json({ message: "Error : Incomplete Data Provided" });
+  // }
 });
 
 // search devices
