@@ -188,7 +188,3 @@ socket.on("feedUpdate", (data) => {
   // the data stream is passed to the `data` variable.
 });
 ```
-
-### NOTE:
-
-> Ongoing migration to NextJS.
