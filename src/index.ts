@@ -7,7 +7,6 @@ import bodyParser from "body-parser";
 import { formatReport, guid, isFloat } from "./helpers";
 import { getFMA } from "./fmaMapper";
 import moment from "moment-timezone";
-const fma_data = require("../fma.json");
 
 require("dotenv").config();
 
@@ -36,12 +35,14 @@ export const db = low(adapter);
 const AnalyticsRouter = require('./routes/analytics')
 const IncidentsRouter = require('./routes/incidents')
 const DevicesRouter = require('./routes/devices')
+const DatasetRouter = require('./routes/datasets')
 
 
 // assign endpoints
 app.use("/analytics",AnalyticsRouter)
 app.use("/incidents",IncidentsRouter)
 app.use("/devices",DevicesRouter)
+app.use("/dataset",DatasetRouter)
 
 
 // get status
@@ -151,9 +152,6 @@ app.post("/report", (req, res) => {
   }
 });
 
-
-
-
 // confirm / verify report
 
 app.post("/report/confirm", (req, res) => {
@@ -183,7 +181,7 @@ app.post("/report/confirm", (req, res) => {
   }
 });
 
-// recieve report
+// recieve report from web demo
 
 app.post("/add/report", (req, res) => {
   let payload = req.body;
@@ -260,108 +258,6 @@ app.post("/add/report", (req, res) => {
     }
   } else {
     res.status(400).send({ message: "Imcomplete data provided." });
-  }
-});
-
-app.get("/dataset/fma", (req, res) => {
-  res.send(fma_data);
-});
-
-app.post("/v1/report", (req, res) => {
-  let reqData = req.body.data;
-  let resData = {};
-
-  if (reqData) {
-    try {
-      // parse payload
-      let rData = JSON.parse(reqData);
-      let reportInstanceCheck = db
-        .get("incidents")
-        .find({ id: rData.id })
-        .value();
-
-      // ::NOTE for testing report endpoint refactor the fma_classification variable is fixed to FMA-06
-      // let fma_classification = getFMA([rData.cr.lg, rData.cr.lt]);
-      let fma_classification = "FMA-06";
-
-      // check if fma classification is valid.
-      if (fma_classification) {
-        // new report data mapped
-        resData = {
-          id: rData.id,
-          details: rData.dt,
-          device_id: rData.di,
-          type: rData.tp === "cr" ? "emergency" : "illegal_fishing",
-          name:
-            rData.tp === "if" ? "Illegal Fishing Report" : "Emergency Report",
-          title:
-            rData.tp === "if" ? "Illegal Fishing Report" : "Emergency Report",
-          fma: fma_classification,
-          reportee: rData.rp,
-          source_platform: rData.sp,
-          date_reported: rData.dn,
-          date_created: Date.now(),
-          date_updated: Date.now(),
-          date_confirmed: null,
-          coordinates: {
-            long: rData.cr.lg,
-            lat: rData.cr.lt,
-          },
-          report_type: rData.md === "0" ? "manual" : "auto",
-          status: "PENDING",
-          updates: [],
-        };
-
-        // check if the report instance exists
-        if (!reportInstanceCheck) {
-          db.get("incidents").value().push(resData);
-          let updatedRecords = db.get("incidents").value();
-          io.emit("feedUpdate", { data: updatedRecords });
-          db.write();
-        } else {
-          // update existing report
-          console.log("updating report");
-          let existingReport = db
-            .get("incidents")
-            .find({ id: rData.id })
-            .value();
-
-          let reportUpdate = {
-            coordinates: { lat: rData.cr.lt, long: rData.cr.lg },
-            date: rData.dn,
-          };
-
-          existingReport.date_updated = Date.now();
-          let checkUpdateEntry = existingReport.updates.find(
-            ({ coordinates }) =>
-              coordinates.lat === reportUpdate.coordinates.lat &&
-              coordinates.long === reportUpdate.coordinates.long
-          );
-
-          // write report update of coordinates to db if it doesn't exist.
-          if (!checkUpdateEntry) {
-            existingReport.updates.push(reportUpdate);
-            db.write();
-          }
-        }
-
-        // send valid response
-        res.status(200).send({ message: "Report save successfully." });
-
-        // broadcast updated report records
-        let updatedRecords = db.get("incidents").value();
-        io.emit("feedUpdate", { data: updatedRecords });
-      } else {
-        res
-          .status(400)
-          .send({ message: "Invalid Coordinates, no FMA classification!" });
-      }
-    } catch (err) {
-      console.log(err);
-      res.status(400).send("Error: Invalid data format");
-    }
-  } else {
-    res.status(400).send("Missing data parameter.");
   }
 });
 
