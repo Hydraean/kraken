@@ -6,7 +6,6 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import { formatReport, guid, isFloat } from "./helpers";
 import { getFMA } from "./fmaMapper";
-import Fuse from "fuse.js";
 import moment from "moment-timezone";
 const fma_data = require("../fma.json");
 
@@ -32,26 +31,25 @@ const adapter = new FileSync("db.json");
 
 export const db = low(adapter);
 
+
+// import routers
+const AnalyticsRouter = require('./routes/analytics')
+const IncidentsRouter = require('./routes/incidents')
+const DevicesRouter = require('./routes/devices')
+
+
+// assign endpoints
+app.use("/analytics",AnalyticsRouter)
+app.use("/incidents",IncidentsRouter)
+app.use("/devices",DevicesRouter)
+
+
 // get status
 app.get("/", (req, res) => {
   res.send({
     message: "Kraken Demo API v.0",
     status: "running",
   });
-});
-
-// get all events
-app.get("/incidents", (req, res) => {
-  let allEvents = db.get("incidents").value();
-
-  res.send(allEvents);
-});
-
-// get all devices
-app.get("/devices", (req, res) => {
-  let allDevices = db.get("devices").value();
-
-  res.send(allDevices);
 });
 
 // recieve raw reports
@@ -132,7 +130,7 @@ app.post("/report", (req, res) => {
             db.write();
           }
         }
-
+         // TODO: add device cataloging
         // send valid response
         res.status(200).send({ message: "Report save successfully." });
 
@@ -151,127 +149,10 @@ app.post("/report", (req, res) => {
   } else {
     res.status(400).send("Missing data parameter.");
   }
-  // let payload = req.body.data;
-
-  // console.log(payload);
-
-  // if (payload) {
-  //   var parseData = payload.replace(/"{/gi, "{").replace(/}"/gi, "}");
-  //   try {
-  //     let reportData = JSON.parse(parseData);
-  //     let formattedReport = formatReport(reportData);
-
-  //     // save report to event collection
-  //     db.get("incidents").value().push(formattedReport);
-
-  //     // record interaction with device.
-  //     let deviceID = reportData.payload
-  //       ? reportData.payload.uid
-  //       : reportData.device_id;
-
-  //     let deviceInstance = db
-  //       .get("devices")
-  //       .find({ device_id: deviceID })
-  //       .value();
-
-  //     if (!deviceInstance) {
-  //       let newDevice = {
-  //         id: guid(),
-  //         device_id: deviceID,
-  //         type: deviceID.includes("HN-") ? "node" : "gateway",
-  //         first_interaction: moment()
-  //           .tz("Asia/Taipei")
-  //           .format("MMMM D YYYY,hh:mm:ss A"),
-  //         last_interaction: moment()
-  //           .tz("Asia/Taipei")
-  //           .format("MMMM D YYYY,hh:mm:ss A"),
-  //       };
-  //       db.get("devices").value().push(newDevice);
-  //     } else {
-  //       deviceInstance.last_interaction = moment()
-  //         .tz("Asia/Taipei")
-  //         .format("MMMM D YYYY,hh:mm:ss A");
-  //     }
-
-  //     db.write();
-
-  //     // broadcast updated report records
-  //     let updatedRecords = db.get("incidents").value();
-  //     io.emit("feedUpdate", { data: updatedRecords });
-
-  //     console.log(`KRAKEN API: Report recieved from device: ${deviceID}`);
-
-  //     res.json({ status: 200, message: "Kraken: Raw report recieved." });
-  //   } catch (err) {
-  //     console.log(err);
-  //     res.status(400).json({
-  //       message:
-  //         "Error : Malformed Request, check the payload format and try again.",
-  //     });
-  //   }
-  // } else {
-  //   res.status(400).json({ message: "Error : Incomplete Data Provided" });
-  // }
 });
 
-// search devices
-app.get("/devices/search", (req, res) => {
-  let query: any = req.query.query;
 
-  let devicelist = db.get("devices").value();
 
-  const options = {
-    keys: ["device_id", "first_interaction", "last_interaction"],
-  };
-
-  if (query) {
-    const fuse = new Fuse(devicelist, options);
-    let results: any = fuse.search(query);
-    results = results.map((x) => x.item);
-    res.send(results);
-  } else {
-    res.status(400).send({
-      message: "Search failed. No query provided.",
-      status: 400,
-    });
-  }
-});
-
-// search incidents
-app.get("/incidents/search", (req, res) => {
-  let query: any = req.query.query;
-
-  let incidentList = db.get("incidents").value();
-
-  const options = {
-    keys: [
-      "device_id",
-      "name",
-      "title",
-      "reportee",
-      "report_type",
-      "date",
-      "details",
-      "source_platform",
-      "type",
-      "status",
-      "fma",
-    ],
-  };
-
-  if (query) {
-    const fuse = new Fuse(incidentList, options);
-    let results: any = fuse.search(query);
-    results = results.map((x) => x.item);
-
-    res.send(results);
-  } else {
-    res.status(400).send({
-      message: "Search failed. No query provided.",
-      status: 400,
-    });
-  }
-});
 
 // confirm / verify report
 
