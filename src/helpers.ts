@@ -77,3 +77,43 @@ export const formatReport = (report: any) => {
 
   return data;
 };
+
+
+export const fmaData = [
+  {
+    fma: "FMA-01"
+  },
+  {
+    fma: "FMA-02"
+  },
+  {
+    fma: "FMA-03"
+  },
+  {
+    fma: "FMA-04"
+  },
+  {
+    fma: "FMA-05"
+  },
+  {
+    fma: "FMA-06"
+  },
+  {
+    fma: "FMA-07"
+  },
+  {
+    fma: "FMA-08"
+  },
+  {
+    fma: "FMA-09"
+  },
+  {
+    fma: "FMA-10"
+  },
+  {
+    fma: "FMA-11"
+  },
+  {
+    fma: "FMA-12"
+  },
+]
