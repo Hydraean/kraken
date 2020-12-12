@@ -11,7 +11,7 @@
       "fma": "FMA-03",
       "reportee": "Anonymous",
       "source_platform": "node",
-      "date": "August 21 2020,04:42:03 PM",
+      "date_reported": "August 21 2020, 04:42:03 PM",
       "coordinates": {
         "long": 121.921724,
         "lat": 14.5446942
@@ -31,7 +31,7 @@
       "address": "N/A",
       "reportee": "Anonymous",
       "source_platform": "node",
-      "date": "August 21 2020,04:42:06 PM",
+      "date_reported": "August 21 2020,04:42:06 PM",
       "coordinates": {
         "long": 121.9216743,
         "lat": 14.5422497
@@ -50,7 +50,7 @@
       "fma": "FMA-05",
       "reportee": "Anonymous",
       "source_platform": "node",
-      "date": "August 21 2020,04:42:10 PM",
+      "date_reported": "August 21 2020,04:42:10 PM",
       "coordinates": {
         "long": 121.9216547,
         "lat": 14.541204
@@ -69,7 +69,7 @@
       "fma": "FMA-05",
       "reportee": "Bryce Mercines",
       "source_platform": "node",
-      "date": "November 1 2020,09:33:25 AM",
+      "date_reported": "November 1 2020,09:33:25 AM",
       "coordinates": {
         "lat": 14.58879,
         "long": 120.76629
@@ -88,7 +88,7 @@
       "fma": "FMA-02",
       "reportee": "Bryce Mercines",
       "source_platform": "node",
-      "date": "November 1 2020,09:33:29 AM",
+      "date_reported": "November 1 2020,09:33:29 AM",
       "coordinates": {
         "lat": 14.50371,
         "long": 120.74823
@@ -107,7 +107,7 @@
       "fma": "FMA-05",
       "reportee": "Bryce Mercines",
       "source_platform": "node",
-      "date": "November 1 2020,09:33:33 AM",
+      "date_reported": "November 1 2020,09:33:33 AM",
       "coordinates": {
         "lat": 14.58747,
         "long": 120.72108
@@ -126,7 +126,7 @@
       "fma": "FMA-03",
       "reportee": "Bryce Mercines",
       "source_platform": "node",
-      "date": "November 1 2020,09:33:37 AM",
+      "date_reported": "November 1 2020,09:33:37 AM",
       "coordinates": {
         "lat": 14.5483,
         "long": 120.75519
@@ -145,7 +145,7 @@
       "fma": "FMA-11",
       "reportee": "Bryce Mercines",
       "source_platform": "node",
-      "date": "November 1 2020,09:33:41 AM",
+      "date_reported": "November 1 2020,09:33:41 AM",
       "coordinates": {
         "lat": 14.58896,
         "long": 120.79119
@@ -164,7 +164,7 @@
       "fma": "FMA-04",
       "reportee": "Bryce Mercines",
       "source_platform": "node",
-      "date": "November 1 2020,09:33:45 AM",
+      "date_reported": "November 1 2020,09:33:45 AM",
       "coordinates": {
         "lat": 14.54357,
         "long": 120.73796
@@ -183,7 +183,7 @@
       "fma": "FMA-11",
       "reportee": "Bryce Mercines",
       "source_platform": "node",
-      "date": "November 1 2020,09:33:49 AM",
+      "date_reported": "November 1 2020,09:33:49 AM",
       "coordinates": {
         "lat": 14.57337,
         "long": 120.75902
@@ -202,7 +202,7 @@
       "fma": "FMA-12",
       "reportee": "Bryce Mercines",
       "source_platform": "node",
-      "date": "November 1 2020,09:33:53 AM",
+      "date_reported": "November 1 2020,09:33:53 AM",
       "coordinates": {
         "lat": 14.53282,
         "long": 120.72332
@@ -221,7 +221,7 @@
       "fma": "FMA-09",
       "reportee": "Bryce Mercines",
       "source_platform": "node",
-      "date": "November 1 2020,09:33:58 AM",
+      "date_reported": "November 1 2020,09:33:58 AM",
       "coordinates": {
         "lat": 14.54696,
         "long": 120.79218
@@ -240,7 +240,7 @@
       "fma": "FMA-04",
       "reportee": "Bryce Mercines",
       "source_platform": "node",
-      "date": "November 1 2020,09:34:05 AM",
+      "date_reported": "November 1 2020,09:34:05 AM",
       "coordinates": {
         "lat": 14.50478,
         "long": 120.71652
@@ -258,7 +258,7 @@
       "fma": "FMA-01",
       "reportee": "Bryce Mercines",
       "source_platform": "node",
-      "date": "November 1 2020,09:34:09 AM",
+      "date_reported": "November 1 2020,09:34:09 AM",
       "coordinates": {
         "long": 120.66844478372633,
         "lat": 14.607293139376935
@@ -384,7 +384,7 @@
       "reportee": "Bryce Mercines",
       "fma": "FMA-03",
       "source_platform": "node",
-      "date": "November 1 2020,09:34:13 AM",
+      "date_reported": "November 1 2020,09:34:13 AM",
       "coordinates": {
         "lat": 14.52162,
         "long": 120.7473
@@ -402,7 +402,7 @@
       "address": "FMA-01",
       "reportee": "Bryce Mercines",
       "source_platform": "node",
-      "date": "November 1 2020,09:34:17 AM",
+      "date_reported": "November 1 2020,09:34:17 AM",
       "coordinates": {
         "lat": 14.59647,
         "long": 120.7273
@@ -421,7 +421,7 @@
       "fma": "FMA-04",
       "reportee": "Bryce Mercines",
       "source_platform": "node",
-      "date": "November 1 2020,09:34:29 AM",
+      "date_reported": "November 1 2020,09:34:29 AM",
       "coordinates": {
         "lat": 14.50698,
         "long": 120.77282
@@ -440,7 +440,7 @@
       "fma": "FMA-03",
       "reportee": "Bryce Mercines",
       "source_platform": "node",
-      "date": "November 1 2020,09:34:33 AM",
+      "date_reported": "November 1 2020,09:34:33 AM",
       "coordinates": {
         "lat": 14.55226,
         "long": 120.7854
@@ -459,7 +459,7 @@
       "fma": "FMA-05",
       "reportee": "Bryce Mercines",
       "source_platform": "node",
-      "date": "November 1 2020,09:34:37 AM",
+      "date_reported": "November 1 2020,09:34:37 AM",
       "coordinates": {
         "lat": 14.55036,
         "long": 120.70416
@@ -478,7 +478,7 @@
       "fma": "FMA-04",
       "reportee": "Bryce Mercines",
       "source_platform": "node",
-      "date": "November 1 2020,09:34:41 AM",
+      "date_reported": "November 1 2020,09:34:41 AM",
       "coordinates": {
         "lat": 14.51401,
         "long": 120.73614
@@ -497,7 +497,7 @@
       "fma": "FMA-05",
       "reportee": "Bryce Mercines",
       "source_platform": "node",
-      "date": "November 1 2020,09:34:45 AM",
+      "date_reported": "November 1 2020,09:34:45 AM",
       "coordinates": {
         "lat": 14.56745,
         "long": 120.70893
@@ -516,7 +516,7 @@
       "fma": "FMA-04",
       "reportee": "Bryce Mercines",
       "source_platform": "node",
-      "date": "November 28 2020,09:11:31 PM",
+      "date_reported": "November 28 2020,09:11:31 PM",
       "coordinates": {
         "lat": 14.59565,
         "long": 120.70281
