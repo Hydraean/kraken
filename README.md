@@ -6,7 +6,7 @@
 
 - Supports Real-time Updates via Websockets using Socket.io
 - Supports REST API endpoints
-- Open, Cross Origin Request Enabled.
+- Open, Cross-Origin Request Enabled.
 
 ## Documentation
 
@@ -148,35 +148,67 @@ Sample Response:
 ]
 ```
 
-#### [POST] `/add/report`
+#### [GET] `/analytics`
 
-> Allows you to add reports
+> Gives an overview of data sorted by date. also contains a list and information of other fishery management areas.
 
-Sample Request Data, in the body of the request:
+Get more specific pieces of data:
+
+- `/analytics/incidents/overview`
+- `/analytics/incidents/complete/`
+
+```json
+{
+  "fma_list": [
+    "FMA-01",
+    ...
+  ],
+  "incidents_overview": [
+    {
+      "fma": "FMA-01",
+      "records": [
+        {
+          "date": "11-01-2020",
+          "activityCount": 1
+        }
+      ]
+    },
+
+}
+```
+
+Sample Response:
 
 ```json
 [
   {
-    "details": "This is just a test",
+    "id": "47f2bbe1-0ed2-46cf-bc4f-82416665ac91",
+    "details": "Illegal Fishing Activity",
     "device_id": "HN-00001",
     "type": "illegal_fishing",
-    "name": "Blast Fishing",
-    "title": "Test report for illegal fishing",
-    "address": "FMA-06",
-    "reportee": "Juan Dela Cruz",
+    "name": "EMERGENCY ALERT",
+    "title": "ILLEGAL FISHING REPORT",
+    "address": "N/A",
+    "reportee": "Anonymous",
+    "source_platform": "node",
+    "date": "August 21 2020,04:42:03 PM",
     "coordinates": {
       "long": 121.921724,
       "lat": 14.5446942
-    }
-  }
-]
+    },
+    "report_type": "MANUAL",
+    "status": "CONFIRMED",
+    "verifier": "Hydraean_Admin"
+  },
+  ...
+  ]
 ```
 
 ### Real-time Events
 
-> You can connect to the web socket server and an get instant stream of data from the service once an update occurs, you can do this by using the Socket.io Framework. this is available in multiple language like JavaScript and Python, it can also be done both in the client and server side.
+> You can connect to the web socket server and get an instant stream of data from the service once an update occurs, you can do this by using the Socket.io Framework. this is available in multiple languages like JavaScript and Python, it can also be done both on the client and server-side.
 
-Example connection from client side in a React Application using the `socket.io-client` package:
+Example connection from the client-side in a React Application using the `socket.io-client` package:
 
 ```js
 import React from "react";
