@@ -4,7 +4,7 @@ import lowdb from "../lowdb"
 
 
 devicesRoute.get("/", (req, res) => {
-  let allEvents = lowdb.get("incidents").value();
+  let allEvents = lowdb.get("devices").value();
 
   res.send(allEvents);
 });
