@@ -142,7 +142,11 @@ AnalyticsRoute.get("/incidents/date-search",(req,res)=>{
       res.send(result)
     }
   }else{
-    res.send("invalid dates!")
+    res.status(400).send(
+      {
+        message: "Erro: Invalid dates provided!"
+      }
+    )
   }
 })
 
