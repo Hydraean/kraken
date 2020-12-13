@@ -88,7 +88,7 @@ fma_list.forEach((fma:any)=>{
 // endpoints
 AnalyticsRoute.get("/", (req, res) => {
   let response = {
-    fma_list: fma_list,
+    fma_list: fmaData,
     incidents_overview: incident_summary
   }
   res.send(response)
@@ -108,6 +108,43 @@ AnalyticsRoute.get("/incidents/all", (req, res) => {
   let response = allIncidentEvent
   res.send(response)
 });
+
+AnalyticsRoute.get("/incidents/date-search",(req,res)=>{
+
+  let fma = req.query.fma ? req.query.fma.toUpperCase() : "all";
+  let startDate = moment(new Date(req.query.startDate));
+  let endDate = moment(new Date(req.query.endDate));
+
+  const isBetweenDates = (date:any) => {
+    let dateToCompare = moment(new Date(date))
+    return dateToCompare.isBetween(startDate,endDate)
+  }
+
+  if(startDate.isValid() && endDate.isValid()){
+    if(!fma_list.includes(fma)){
+
+      let data_filtered_by_date = allIncidentEvent.filter((x:any)=> isBetweenDates(x.date))
+      let result = {
+        mode: "all",
+        context: "/incidents/date-search",
+        fma: fma,
+        results: data_filtered_by_date
+      }
+      res.send(result)
+
+    }else{
+      let data_filtered_by_date = incident_summary.find((i:any)=> i.fma === fma).records.filter((x:any)=> isBetweenDates(x.date))
+      let result = {
+        context: "/incidents/date-search",
+        fma: fma,
+        results: data_filtered_by_date
+      }
+      res.send(result)
+    }
+  }else{
+    res.send("invalid dates!")
+  }
+})
 
 
 

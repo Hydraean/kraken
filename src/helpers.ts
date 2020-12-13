@@ -81,39 +81,51 @@ export const formatReport = (report: any) => {
 
 export const fmaData = [
   {
-    fma: "FMA-01"
+    fma: "FMA-01",
+    description: "Fishery Management Area 1"
   },
   {
-    fma: "FMA-02"
+    fma: "FMA-02",
+    description: "Fishery Management Area 2"
   },
   {
-    fma: "FMA-03"
+    fma: "FMA-03",
+    description: "Fishery Management Area 3"
   },
   {
-    fma: "FMA-04"
+    fma: "FMA-04",
+    description: "Fishery Management Area 4"
   },
   {
-    fma: "FMA-05"
+    fma: "FMA-05",
+    description: "Fishery Management Area 5"
   },
   {
-    fma: "FMA-06"
+    fma: "FMA-06",
+    description: "Fishery Management Area 6"
   },
   {
-    fma: "FMA-07"
+    fma: "FMA-07",
+    description: "Fishery Management Area 7"
   },
   {
-    fma: "FMA-08"
+    fma: "FMA-08",
+    description: "Fishery Management Area 8"
   },
   {
-    fma: "FMA-09"
+    fma: "FMA-09",
+    description: "Fishery Management Area 9"
   },
   {
-    fma: "FMA-10"
+    fma: "FMA-10",
+    description: "Fishery Management Area 10"
   },
   {
-    fma: "FMA-11"
+    fma: "FMA-11",
+    description: "Fishery Management Area 11"
   },
   {
-    fma: "FMA-12"
+    fma: "FMA-12",
+    description: "Fishery Management Area 12"
   },
 ]
