@@ -78,54 +78,66 @@ export const formatReport = (report: any) => {
   return data;
 };
 
-
 export const fmaData = [
   {
     fma: "FMA-01",
-    description: "Fishery Management Area 1"
+    description: "Fishery Management Area 1",
   },
   {
     fma: "FMA-02",
-    description: "Fishery Management Area 2"
+    description: "Fishery Management Area 2",
   },
   {
     fma: "FMA-03",
-    description: "Fishery Management Area 3"
+    description: "Fishery Management Area 3",
   },
   {
     fma: "FMA-04",
-    description: "Fishery Management Area 4"
+    description: "Fishery Management Area 4",
   },
   {
     fma: "FMA-05",
-    description: "Fishery Management Area 5"
+    description: "Fishery Management Area 5",
   },
   {
     fma: "FMA-06",
-    description: "Fishery Management Area 6"
+    description: "Fishery Management Area 6",
   },
   {
     fma: "FMA-07",
-    description: "Fishery Management Area 7"
+    description: "Fishery Management Area 7",
   },
   {
     fma: "FMA-08",
-    description: "Fishery Management Area 8"
+    description: "Fishery Management Area 8",
   },
   {
     fma: "FMA-09",
-    description: "Fishery Management Area 9"
+    description: "Fishery Management Area 9",
   },
   {
     fma: "FMA-10",
-    description: "Fishery Management Area 10"
+    description: "Fishery Management Area 10",
   },
   {
     fma: "FMA-11",
-    description: "Fishery Management Area 11"
+    description: "Fishery Management Area 11",
   },
   {
     fma: "FMA-12",
-    description: "Fishery Management Area 12"
+    description: "Fishery Management Area 12",
   },
-]
+];
+
+export const dateFiller: any = () => {
+  let months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  let currentYear = moment().format("YYYY");
+  let mappedDates = months.map((x: any) => {
+    return {
+      date: moment(new Date(`${x}-1-${currentYear}`)).format("MM-DD-YYYY"),
+      activityCount: 0,
+    };
+  });
+
+  return mappedDates;
+};
