@@ -1,14 +1,17 @@
 const incidentsRoute = require("express").Router();
 import Fuse from "fuse.js";
-import lowdb from "../lowdb"
-
+import lowdb from "../lowdb";
+import { formatIncidents } from "../helpers";
 
 incidentsRoute.get("/", (req, res) => {
   let allEvents = lowdb.get("incidents").value();
-  res.send(allEvents);
+
+  let responseData = formatIncidents(allEvents);
+
+  res.send(responseData);
 });
 
-incidentsRoute.get("/search", (req,res)=>{
+incidentsRoute.get("/search", (req, res) => {
   let query: any = req.query.query;
 
   let incidentList = lowdb.get("incidents").value();
@@ -32,7 +35,10 @@ incidentsRoute.get("/search", (req,res)=>{
   if (query) {
     const fuse = new Fuse(incidentList, options);
     let results: any = fuse.search(query);
-    results = results.map((x) => x.item);
+
+    let searchResults = results.map((x) => x.item);
+
+    results = formatIncidents(searchResults);
 
     res.send(results);
   } else {
@@ -41,6 +47,6 @@ incidentsRoute.get("/search", (req,res)=>{
       status: 400,
     });
   }
-})
+});
 
 module.exports = incidentsRoute;

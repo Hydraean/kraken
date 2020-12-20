@@ -255,7 +255,7 @@
       "type": "emergency",
       "name": "EMERGENCY ALERT",
       "title": "EMERGENCY DISTRESS SIGNAL",
-      "fma": "FMA-01",
+      "fma": "FMA-06",
       "reportee": "Bryce Mercines",
       "source_platform": "node",
       "date_reported": "November 1 2020,09:34:09 AM",
